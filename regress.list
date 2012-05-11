@@ -773,6 +773,7 @@ v0.8:defparam3	NI
 v0.8:defparam4	NI
 v0.8:generate_case	NI
 v0.8:generate_case2	NI
+v0.8:generate_case3	NI
 v0.8:gen_case_opt1 NI
 v0.8:gen_case_opt2 NI
 v0.8:gen_case_opt3 NI
@@ -901,6 +902,8 @@ v0.8:pr3296466b	NI
 v0.8:pr3296466c	NI
 v0.8:pr3296466d	NI
 v0.8:tranif1	NI
+v0.8:pr3499807	NI
+v0.8:switch_primitives	NI
 
 # V0.8 does not support the `resetall directive
 v0.8:resetall	NI
@@ -1047,6 +1050,9 @@ v0.8:struct4	NI
 v0.8:struct5	NI
 v0.8:struct6	NI
 v0.8:packeda	NI
+v0.8:inc_dec_stmt NI
+v0.8:task_scope2 NI
+v0.8:task_init_assign NI
 
 # V0.8 does not support automatic tasks or functions.
 v0.8:automatic_error1	NI
@@ -1134,6 +1140,7 @@ v0.8:pr3390385b		NI
 v0.8:pr3390385c		NI
 v0.8:pr3390385d		NI
 v0.8:pr3462145		NI
+v0.8:pr3515542	NI
 v0.8:sbyte_test	NI
 v0.8:simple_byte	NI
 v0.8:simple_int	NI
@@ -1485,6 +1492,9 @@ v0.8:block_only_with_var_def	CE	ivltests
 v0.8:pr3437290a	EF		ivltests
 v0.8:pr3437290c	EF		ivltests
 
+v0.8:struct_packed_sysfunct	NI
+v0.8:sv_end_labels_bad		NI
+
 #==========
 # Things not supported by V0.9.
 #==========
@@ -1531,6 +1541,7 @@ v0.9:pr3390385b		NI
 v0.9:pr3390385c		NI
 v0.9:pr3390385d		NI
 v0.9:pr3462145		NI
+v0.9:pr3515542	NI
 v0.9:sbyte_test	NI
 v0.9:simple_byte	NI
 v0.9:simple_int	NI
@@ -1647,6 +1658,9 @@ v0.9:struct4		NI
 v0.9:struct5		NI
 v0.9:struct6		NI
 v0.9:packeda		NI
+v0.9:inc_dec_stmt	NI
+v0.9:task_scope2	NI
+v0.9:task_init_assign	NI
 
 # v0.9 does not have the vhdl_sys module
 v0.9:ivlh_event	NI
@@ -1681,7 +1695,10 @@ v0.9:pr2913927	EF	ivltests
 v0.9:pr2937417	EF	ivltests
 v0.9:pr2937417b	EF	ivltests
 v0.9:pr2937417c	EF	ivltests
-v0.9:pr2941939	EF	ivltests
+v0.9:switch_primitives	EF	ivltests
+# and does not support tranif delays
+v0.9:pr2941939	CE	ivltests
+v0.9:pr3499807	CE	ivltests
 
 # V0.9 does not have the ability to select the SDF delays you always get typ.
 v0.9:sdf_del_min	EF	ivltests
@@ -1790,6 +1807,9 @@ v0.9:wreal	NI
 v0.9:parameter_type2	normal	ivltests
 v0.9:localparam_type2	normal	ivltests
 
+v0.9:struct_packed_sysfunct	NI
+v0.9:sv_end_labels_bad		NI
+
 #==========
 # V0.9 doesn't support synthesis. Might as well run them as
 # non-synthesis tests, though.
@@ -1886,6 +1906,7 @@ v0.10:inside_synth3	normal	ivltests
 v0.10:mix_reset	normal	ivltests
 v0.10:casex_synth	normal	ivltests
 v0.10:full_case	normal	ivltests
+v0.10:full_case2	normal	ivltests
 
 #==========
 # These are not supported by the Verilog 95 converter.
@@ -1973,6 +1994,7 @@ vlog95:enum_value_expr	CE	ivltests
 vlog95:enum_values	CE	ivltests
 vlog95:extend	CE	ivltests
 vlog95:first_last_num	CE	ivltests
+vlog95:inc_dec_stmt	CE	ivltests
 vlog95:int_param	CE	ivltests
 vlog95:iuint1	CE	ivltests
 vlog95:logp2	CE	ivltests
@@ -2839,6 +2861,7 @@ mangle		normal	ivltests #
 mangle_1	normal	ivltests #
 rop		normal	ivltests #
 task_scope	normal	ivltests #
+task_scope2	normal,-g2009	ivltests #
 hello1		normal	ivltests
 hierspace    normal  ivltests # whitespace.around .dots. in. hierarchical .names
 dotinid		normal	ivltests # escaped names with . dots
@@ -3423,6 +3446,7 @@ ca_pow_signed	normal	ivltests
 ca_pow_synth	normal	ivltests
 generate_case	normal	ivltests
 generate_case2	normal	ivltests
+generate_case3	normal	ivltests
 real_pulse_clean	normal	ivltests
 pr1892959	normal	ivltests
 pr1892959b	normal	ivltests
@@ -4110,3 +4134,13 @@ struct4	normal,-g2009	ivltests
 struct5	normal,-g2009	ivltests
 struct6	normal,-g2009	ivltests
 packeda	normal,-g2009	ivltests
+pr3499807	normal	ivltests diff=log/pr3499807.log:gold/pr3499807.gold
+switch_primitives	normal	ivltests diff=log/switch_primitives.log:gold/switch_primitives.gold
+inc_dec_stmt	normal,-g2009	ivltests
+task_init_assign	normal,-g2009	ivltests
+pr3515542	CE,-g2005-sv	ivltests diff=log/pr3515542.log:gold/pr3515542.gold
+struct_packed_sysfunct		normal,-g2009   ivltests
+sv_end_labels_bad		CE,-g2009   ivltests  # should fail
+complex_lidx	normal	ivltests
+pr3522653	normal	ivltests diff=log/pr3522653.log:gold/pr3522653.gold
+attrib	normal	ivltests
