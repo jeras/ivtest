@@ -74,3 +74,4 @@ sv_parameter_type        normal,-g2009   ivltests
 sv_interface             normal,-g2009   ivltests
 sv_package               normal,-g2009   ivltests
 sv_casting               normal,-g2009   ivltests
+sv_assignment_pattern    normal,-g2009   ivltests
