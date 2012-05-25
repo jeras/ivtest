@@ -1049,7 +1049,10 @@ v0.8:struct3b	NI
 v0.8:struct4	NI
 v0.8:struct5	NI
 v0.8:struct6	NI
+v0.8:struct7	NI
+v0.8:struct8	NI
 v0.8:packeda	NI
+v0.8:packeda2	NI
 v0.8:inc_dec_stmt NI
 v0.8:task_scope2 NI
 v0.8:task_init_assign NI
@@ -1165,6 +1168,7 @@ v0.8:test_signal_init_assign	NI
 v0.8:test_system	NI
 v0.8:test_timebase	NI
 v0.8:test_varray1	NI
+v0.8:test_when_else	NI
 v0.8:test_tliteral	NI
 v0.8:two_state_display	NI
 v0.8:ubyte_test	NI
@@ -1566,7 +1570,6 @@ v0.9:test_signal_init_assign	NI
 v0.9:test_system	NI
 v0.9:test_timebase	NI
 v0.9:test_tliteral	NI
-v0.9:test_varray1	NI
 v0.9:two_state_display	NI
 v0.9:ubyte_test	NI
 v0.9:uint_test	NI
@@ -1648,6 +1651,7 @@ v0.9:test_signal_init_assign	NI
 v0.9:test_forgen	NI
 v0.9:test_gxor		NI
 v0.9:test_varray1	NI
+v0.9:test_when_else	NI
 v0.9:final		NI
 v0.9:size_cast		NI
 v0.9:struct1		NI
@@ -1657,7 +1661,10 @@ v0.9:struct3b		NI
 v0.9:struct4		NI
 v0.9:struct5		NI
 v0.9:struct6		NI
+v0.9:struct7		NI
+v0.9:struct8		NI
 v0.9:packeda		NI
+v0.9:packeda2		NI
 v0.9:inc_dec_stmt	NI
 v0.9:task_scope2	NI
 v0.9:task_init_assign	NI
@@ -4133,7 +4140,10 @@ struct3b	normal,-g2009	ivltests
 struct4	normal,-g2009	ivltests
 struct5	normal,-g2009	ivltests
 struct6	normal,-g2009	ivltests
+struct7	normal,-g2009	ivltests
+struct8	normal,-g2009	ivltests
 packeda	normal,-g2009	ivltests
+packeda2	normal,-g2009	ivltests
 pr3499807	normal	ivltests diff=log/pr3499807.log:gold/pr3499807.gold
 switch_primitives	normal	ivltests diff=log/switch_primitives.log:gold/switch_primitives.gold
 inc_dec_stmt	normal,-g2009	ivltests
@@ -4144,3 +4154,10 @@ sv_end_labels_bad		CE,-g2009   ivltests  # should fail
 complex_lidx	normal	ivltests
 pr3522653	normal	ivltests diff=log/pr3522653.log:gold/pr3522653.gold
 attrib	normal	ivltests
+specparam1	normal	ivltests
+specparam2	normal	ivltests
+v0.9:specparam1	NI	ivltests
+v0.9:specparam2	NI	ivltests
+pr3527022	normal	ivltests
+pr3527694	normal	ivltests diff=log/pr3527694.log:gold/pr3527694.gold
+test_when_else	normal,-g2009,ivltests/when_else.vhd	ivltests
