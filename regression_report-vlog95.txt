@@ -76,6 +76,7 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
                 enum_values: Passed - CE.
                      extend: Passed - CE.
              first_last_num: Passed - CE.
+               inc_dec_stmt: Passed - CE.
                   int_param: Passed - CE.
                      iuint1: Passed - CE.
                       logp2: Passed - CE.
@@ -286,6 +287,8 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
           fdisplay_fail_mcd: Passed.
                      format: Passed.
                 fread-error: Passed.
+              fscanf_u_warn: Passed.
+              fscanf_z_warn: Passed.
             localparam_type: Passed.
              parameter_type: Passed.
                        mem1: Passed.
@@ -304,6 +307,7 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
             warn_opt_sys_tf: Passed.
              writemem-error: Passed.
            writemem-invalid: Passed.
+               complex_lidx: Passed - CE.
                   defparam3: Passed - CE.
                   defparam4: Passed - CE.
               gen_case_opt1: Passed - CE.
@@ -312,6 +316,7 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
                     genloop: Not Implemented.
               generate_case: Passed - CE.
              generate_case2: Passed - CE.
+             generate_case3: Passed - CE.
         generate_multi_loop: Passed - CE.
                  pr1565699b: Passed - CE.
                   pr1623097: Passed - CE.
@@ -352,6 +357,9 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
                   pr3011327: Passed - CE.
                   pr3409749: Passed - CE.
                  pr3437290b: Passed - CE.
+                  pr3527694: Passed - CE.
+                  pr3534422: Passed - CE.
+                  pr3557493: Passed - CE.
               scoped_events: Passed - CE.
                 test_forgen: Passed - CE.
                   test_gxor: Passed - CE.
@@ -367,6 +375,7 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
                  pr3054101e: Passed - CE.
                  pr3054101f: Passed - CE.
                    bitsel10: Passed - CE.
+              countdrivers3: Passed - CE.
                       inout: Not Implemented.
                      inout2: Passed - CE.
                      inout3: Passed - CE.
@@ -385,7 +394,13 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
                   iint_test: Passed - expected fail.
               ilongint_test: Passed - expected fail.
              ishortint_test: Passed - expected fail.
-                      final: Not Implemented.
+                 sv_string1: Not Implemented.
+                 sv_string2: Not Implemented.
+                 sv_string3: Not Implemented.
+                 sv_string4: Not Implemented.
+                 sv_string5: Not Implemented.
+              fork_join_any: Not Implemented.
+             fork_join_none: Not Implemented.
                  pr3366217e: Not Implemented.
                  pr3366217f: Not Implemented.
                  pr3366217h: Not Implemented.
@@ -395,11 +410,20 @@ Running vlog95 compiler/VVP tests for Icarus Verilog version: 0.10.
                  pr3390385c: Passed - CE.
                  pr3390385d: Passed - CE.
                   pr3462145: Passed - CE.
+                 sv_darray1: Not Implemented.
                  vhdl_test5: Not Implemented.
                  vhdl_test6: Not Implemented.
                  vhdl_test7: Not Implemented.
                  vhdl_test8: Not Implemented.
                  vhdl_test9: Not Implemented.
+                      final: Not Implemented.
+              program_hello: Not Implemented.
+             program_hello2: Not Implemented.
+                   program2: Not Implemented.
+                  program2b: Not Implemented.
+                   program3: Not Implemented.
+                   program4: Not Implemented.
+                  program5b: Not Implemented.
                   pr1587669: Passed - expected fail.
                   pr1877743: Passed - expected fail.
                  pr2590274c: Passed - expected fail.
@@ -871,6 +895,7 @@ test_mos_strength_reduction: Passed.
                    mangle_1: Passed.
                         rop: Passed.
                  task_scope: Passed.
+                task_scope2: Passed.
                      hello1: Passed.
                   hierspace: Passed.
                     dotinid: Passed.
@@ -916,6 +941,9 @@ test_mos_strength_reduction: Passed.
                       fork1: Passed.
                   function5: Passed - CO.
                   function6: Passed.
+                  function7: Passed.
+                  function8: Passed.
+                  function9: Passed.
                   blankport: Passed.
                      dcomp1: Passed.
                         sp2: Passed.
@@ -1369,6 +1397,7 @@ test_mos_strength_reduction: Passed.
                value_range3: Passed - CE.
                      array4: Passed.
                      array5: Passed - CE.
+                     array7: Passed.
                  pr1971662a: Passed - CE.
                  pr1971662b: Passed - CE.
                   pr1978358: Passed.
@@ -1711,7 +1740,7 @@ test_mos_strength_reduction: Passed.
                clkgen_logic: Passed.
                  clkgen_net: Passed.
                  clkgen_reg: Passed.
-                  pr3366114: Passed.
+                  pr3366114: ==> Failed - running iverilog.
                  pr3366217a: Passed - CE.
                  pr3366217b: Passed - CE.
                  pr3366217c: Passed - CE.
@@ -1740,6 +1769,40 @@ test_mos_strength_reduction: Passed.
                     struct4: Passed.
                     struct5: Passed.
                     struct6: Passed.
+                    struct7: Passed.
+                    struct8: Passed.
+                   packeda2: ==> Failed - running iverilog.
+                  pr3499807: Passed.
+          switch_primitives: Passed.
+           task_init_assign: ==> Failed - output does not match gold file.
+                  pr3515542: Passed - CE.
+     struct_packed_sysfunct: Passed.
+          sv_end_labels_bad: Passed - CE.
+                  pr3522653: ==> Failed - output does not match gold file.
+                     attrib: Passed.
+                 specparam1: Passed.
+                 specparam2: Passed.
+                  pr3527022: Passed.
+             test_when_else: Passed.
+                  program3a: Passed - CE.
+                  program3b: Passed - CE.
+                  program5a: Passed - CE.
+                 constfunc1: Passed.
+                 constfunc2: Passed.
+              countdrivers1: Passed.
+              countdrivers2: Passed.
+              countdrivers4: Passed.
+              countdrivers5: Passed.
+                  pr3534333: Passed.
+                  pr3539372: Passed.
+             udp_real_delay: Passed.
+                  pr3549328: Passed - CE.
+                  pr3561350: Passed.
+                  pr3563412: Passed.
+                   sscanf_z: Passed.
+                   fscanf_z: Passed.
+                   sscanf_u: Passed.
+                   fscanf_u: Passed.
 ============================================================================
 Test results:
-  Total=1740, Passed=1605, Failed=7, Not Implemented=85, Expected Fail=43
+  Total=1803, Passed=1649, Failed=11, Not Implemented=100, Expected Fail=43

@@ -38,7 +38,7 @@ vstd:memwide		normal	memwide.cc	memwide-std.log
 vstd:nulls1		normal	nulls1.c	nulls1-std.log
 
 # Icarus outputs warning messages.
-vstd:pr723		normal	pr723.c 	pr723-std.log
+vstd:pr723		normal	pr723.c		pr723-std.log
 
 # This test has a non-deterministic output order. The gold file needs
 # to be adjusted to match the simulator being used.
@@ -53,7 +53,7 @@ vstd:scopes		normal	scopes.c	scopes-std.log
 # Specifically the calltf, compieltf and sizetf routines take a
 # (char *) argument not a (PLI_BYTE8 *). This difference only
 # produces a warning for C code, but is fatal for C++ code.
-# 
+#
 #==========
 v0.8:hello_vpi   normal hello_vpi.c   hello.log           -DIVERILOG_V0_8
 v0.8:hello_tf    normal hello_tf.c    hello_tf.log        -DIVERILOG_V0_8
@@ -63,7 +63,7 @@ v0.8:nulls1      normal nulls1.c      nulls1-v0.8.log     -DIVERILOG_V0_8
 v0.8:scanmem     normal scanmem.cc    scanmem.log         -DIVERILOG_V0_8
 v0.8:scanmem2    normal scanmem2.cc   scanmem2.log        -DIVERILOG_V0_8
 # V0.8 incorrectly uses 0 bits outside the vector range to determine
-# if X is printed. 
+# if X is printed.
 v0.8:scanmem3    normal scanmem3.cc   scanmem3-v0.8.log   -DIVERILOG_V0_8
 v0.8:event1      normal event1.c      event1.log          -DIVERILOG_V0_8
 v0.8:pokereg     normal pokereg.cc    pokereg.log         -DIVERILOG_V0_8
@@ -111,7 +111,11 @@ v0.8:timescale        normal timescale.c   timescale-v0.8.log
 v0.8:final       NI final.c final.gold
 v0.9:final       NI final.c final.gold
 
-# Add v0.8 overrides here.
+# V0.8, V0.9 do not support getting port properties.
+v0.8:ports_params  NI ports_params.c ports_params.gold
+v0.9:ports_params  NI ports_params.c ports_params.gold
+
+# Add v0.8/v0.9 overrides here.
 
 #==========
 # The default case.
@@ -155,6 +159,7 @@ check_version	 normal	check_version.c	check_version.gold
 pr2966059        normal,-gno-xtypes pr2966059.c   pr2966059.gold
 pr2971220        normal pr2971220.c   pr2971220.gold
 final            normal,-g2009 final.c final.gold
+ports_params     normal ports_params.c ports_params.gold
 
 # Add new tests here. If the test needs a compile option or a
 # different log file to run with an older versions or if it uses

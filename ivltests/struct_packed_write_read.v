@@ -1,5 +1,7 @@
-
-// This tests unalligned access to packed structures
+// This tests unalligned write/read access to packed structures
+//
+// This file ONLY is placed into the Public Domain, for any use,
+// without warranty, 2012 by Iztok Jeras.
 
 module test;
 
@@ -8,11 +10,14 @@ module test;
       logic [7:0] low;
    } word_t;
 
-   // Declare word1/2/3 as a VARIABLE
+   // Declare word* as a VARIABLE
    word_t word_se0, word_se1, word_se2, word_se3;
    word_t word_sw0, word_sw1, word_sw2, word_sw3;
    word_t word_sp0, word_sp1, word_sp2, word_sp3;
    word_t word_ep0, word_ep1, word_ep2, word_ep3;
+
+   // error counter
+   bit err = 0;
 
    // access to structure elements
    assign word_se1.high       = {8+0{1'b1}};
@@ -40,39 +45,39 @@ module test;
    initial begin
       #1;
       // access to structure elements
-      if (word_se0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_se0      = 16'b%b", word_se0     ); $finish; end
-      if (word_se1      !== 16'b11111111_00000000) begin $display("FAILED -- word_se1      = 16'b%b", word_se1     ); $finish; end
-      if (word_se1.high !==  8'b11111111         ) begin $display("FAILED -- word_se1.high =  8'b%b", word_se1.high); $finish; end
-      if (word_se1.low  !==  8'b00000000         ) begin $display("FAILED -- word_se1.low  =  8'b%b", word_se1.low ); $finish; end
-      if (word_se2      !== 16'b11111111_00000000) begin $display("FAILED -- word_se2      = 16'b%b", word_se2     ); $finish; end
-      if (word_se2.high !==  8'b11111111         ) begin $display("FAILED -- word_se2.high =  8'b%b", word_se2.high); $finish; end
-      if (word_se2.low  !==  8'b00000000         ) begin $display("FAILED -- word_se2.low  =  8'b%b", word_se2.low ); $finish; end
-      if (word_se3      !== 16'b01111111_00000000) begin $display("FAILED -- word_se3      = 16'b%b", word_se3     ); $finish; end
-      if (word_se3.high !==  8'b01111111         ) begin $display("FAILED -- word_se3.high =  8'b%b", word_se3.high); $finish; end
-      if (word_se3.low  !==  8'b00000000         ) begin $display("FAILED -- word_se3.low  =  8'b%b", word_se3.low ); $finish; end
+      if (word_se0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_se0      = 16'b%b", word_se0     ); err=1; end
+      if (word_se1      !== 16'b11111111_00000000) begin $display("FAILED -- word_se1      = 16'b%b", word_se1     ); err=1; end
+      if (word_se1.high !==  8'b11111111         ) begin $display("FAILED -- word_se1.high =  8'b%b", word_se1.high); err=1; end
+      if (word_se1.low  !==  8'b00000000         ) begin $display("FAILED -- word_se1.low  =  8'b%b", word_se1.low ); err=1; end
+      if (word_se2      !== 16'b11111111_00000000) begin $display("FAILED -- word_se2      = 16'b%b", word_se2     ); err=1; end
+      if (word_se2.high !==  8'b11111111         ) begin $display("FAILED -- word_se2.high =  8'b%b", word_se2.high); err=1; end
+      if (word_se2.low  !==  8'b00000000         ) begin $display("FAILED -- word_se2.low  =  8'b%b", word_se2.low ); err=1; end
+      if (word_se3      !== 16'b01111111_00000000) begin $display("FAILED -- word_se3      = 16'b%b", word_se3     ); err=1; end
+      if (word_se3.high !==  8'b01111111         ) begin $display("FAILED -- word_se3.high =  8'b%b", word_se3.high); err=1; end
+      if (word_se3.low  !==  8'b00000000         ) begin $display("FAILED -- word_se3.low  =  8'b%b", word_se3.low ); err=1; end
       // access to whole structure
-      if (word_sw0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_sw0      = 16'b%b", word_sw0     ); $finish; end
-      if (word_sw1      !== 16'b11111111_11111111) begin $display("FAILED -- word_sw1      = 16'b%b", word_sw1     ); $finish; end
-      if (word_sw2      !== 16'b11111111_11111111) begin $display("FAILED -- word_sw2      = 16'b%b", word_sw2     ); $finish; end
-      if (word_sw3      !== 16'b01111111_11111111) begin $display("FAILED -- word_sw3      = 16'b%b", word_sw3     ); $finish; end
+      if (word_sw0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_sw0      = 16'b%b", word_sw0     ); err=1; end
+      if (word_sw1      !== 16'b11111111_11111111) begin $display("FAILED -- word_sw1      = 16'b%b", word_sw1     ); err=1; end
+      if (word_sw2      !== 16'b11111111_11111111) begin $display("FAILED -- word_sw2      = 16'b%b", word_sw2     ); err=1; end
+      if (word_sw3      !== 16'b01111111_11111111) begin $display("FAILED -- word_sw3      = 16'b%b", word_sw3     ); err=1; end
       // access to parts of structure elements
-      if (word_ep0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_ep0      = 16'b%b", word_ep0     ); $finish; end
-      if (word_ep1      !== 16'bxxxx1111_xxxx0000) begin $display("FAILED -- word_ep1      = 16'b%b", word_ep1     ); $finish; end
-      if (word_ep1.high !==  8'bxxxx1111         ) begin $display("FAILED -- word_ep1.high =  8'b%b", word_ep1.high); $finish; end
-      if (word_ep1.low  !==  8'bxxxx0000         ) begin $display("FAILED -- word_ep1.low  =  8'b%b", word_ep1.low ); $finish; end
-      if (word_ep2      !== 16'bxxxx1111_xxxx0000) begin $display("FAILED -- word_ep2      = 16'b%b", word_ep2     ); $finish; end
-      if (word_ep2.high !==  8'bxxxx1111         ) begin $display("FAILED -- word_ep2.high =  8'b%b", word_ep2.high); $finish; end
-      if (word_ep2.low  !==  8'bxxxx0000         ) begin $display("FAILED -- word_ep2.low  =  8'b%b", word_ep2.low ); $finish; end
-      if (word_ep3      !== 16'bxxxx0111_xxxx0000) begin $display("FAILED -- word_ep3      = 16'b%b", word_ep3     ); $finish; end
-      if (word_ep3.high !==  8'bxxxx0111         ) begin $display("FAILED -- word_ep3.high =  8'b%b", word_ep3.high); $finish; end
-      if (word_ep3.low  !==  8'bxxxx0000         ) begin $display("FAILED -- word_ep3.low  =  8'b%b", word_ep3.low ); $finish; end
+      if (word_ep0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_ep0      = 16'b%b", word_ep0     ); err=1; end
+      if (word_ep1      !== 16'bxxxx1111_xxxx0000) begin $display("FAILED -- word_ep1      = 16'b%b", word_ep1     ); err=1; end
+      if (word_ep1.high !==  8'bxxxx1111         ) begin $display("FAILED -- word_ep1.high =  8'b%b", word_ep1.high); err=1; end
+      if (word_ep1.low  !==  8'bxxxx0000         ) begin $display("FAILED -- word_ep1.low  =  8'b%b", word_ep1.low ); err=1; end
+      if (word_ep2      !== 16'bxxxx1111_xxxx0000) begin $display("FAILED -- word_ep2      = 16'b%b", word_ep2     ); err=1; end
+      if (word_ep2.high !==  8'bxxxx1111         ) begin $display("FAILED -- word_ep2.high =  8'b%b", word_ep2.high); err=1; end
+      if (word_ep2.low  !==  8'bxxxx0000         ) begin $display("FAILED -- word_ep2.low  =  8'b%b", word_ep2.low ); err=1; end
+      if (word_ep3      !== 16'bxxxx0111_xxxx0000) begin $display("FAILED -- word_ep3      = 16'b%b", word_ep3     ); err=1; end
+      if (word_ep3.high !==  8'bxxxx0111         ) begin $display("FAILED -- word_ep3.high =  8'b%b", word_ep3.high); err=1; end
+      if (word_ep3.low  !==  8'bxxxx0000         ) begin $display("FAILED -- word_ep3.low  =  8'b%b", word_ep3.low ); err=1; end
       // access to parts of the whole structure
-      if (word_sp0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_sp0      = 16'b%b", word_sp0     ); $finish; end
-      if (word_sp1      !== 16'bxxxx1111_1111xxxx) begin $display("FAILED -- word_sp1      = 16'b%b", word_sp1     ); $finish; end
-      if (word_sp2      !== 16'bxxxx1111_1111xxxx) begin $display("FAILED -- word_sp2      = 16'b%b", word_sp2     ); $finish; end
-      if (word_sp3      !== 16'bxxxx0111_1111xxxx) begin $display("FAILED -- word_sp3      = 16'b%b", word_sp3     ); $finish; end
+      if (word_sp0      !== 16'bxxxxxxxx_xxxxxxxx) begin $display("FAILED -- word_sp0      = 16'b%b", word_sp0     ); err=1; end
+      if (word_sp1      !== 16'bxxxx1111_1111xxxx) begin $display("FAILED -- word_sp1      = 16'b%b", word_sp1     ); err=1; end
+      if (word_sp2      !== 16'bxxxx1111_1111xxxx) begin $display("FAILED -- word_sp2      = 16'b%b", word_sp2     ); err=1; end
+      if (word_sp3      !== 16'bxxxx0111_1111xxxx) begin $display("FAILED -- word_sp3      = 16'b%b", word_sp3     ); err=1; end
 
-      $display("PASSED");
+      if (!err) $display("PASSED");
    end
 
 endmodule // test
